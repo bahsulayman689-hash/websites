@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sulayman Bah | AI & Machine Learning Engineer</title>
+<meta name="description" content="Sulayman Bah builds machine learning systems for agriculture, energy, finance and civic services in West Africa.">
+<meta property="og:title" content="Sulayman Bah | AI & Machine Learning Engineer">
+<meta property="og:description" content="Machine learning for agriculture, energy, finance and civic services in West Africa.">
+<meta property="og:url" content="https://sulaymanbah.me">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Mermaid.js for System Architecture Flowcharts -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<!-- Chart.js for ML Performance Analytics -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    initAnalyticsChart();
+  });
+</script>
+<style>
+  :root {
+    --paper: #0B1626;
+    --ink: #E8EEF5;
+    --muted: #9FB0C4;
+    --line: #24364D;
+    --river: #7FA2F0;
+    --signal: #FF5A6E;
+    --accent-bg: #14243B;
+    --card-bg: #101F35;
+    --head: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --body: "Newsreader", Georgia, "Times New Roman", serif;
+    --code: "JetBrains Mono", monospace;
+  }
+  :root[data-theme="light"] {
+    --paper: #F2F5F8;
+    --ink: #0E1E33;
+    --muted: #4A5B70;
+    --line: #C9D2DC;
+    --river: #14357F;
+    --signal: #C8102E;
+    --accent-bg: #E2E8F0;
+    --card-bg: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--body); font-size: 1.125rem; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  a { color: var(--river); text-underline-offset: 3px; }
+  a:hover { color: var(--signal); }
+  :focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  header.top { padding: 20px 0; border-bottom: 1px solid var(--line); }
+  header.top .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .mark { font-family: var(--head); font-weight: 700; font-size: 1.1rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+  .head-right { display: flex; align-items: center; gap: 24px; }
+  .avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; background: #fff; border: 2px solid var(--river); display: block; }
+  @media (max-width: 640px) { nav { display: none; } .avatar { width: 48px; height: 48px; } }
+  nav { display: flex; gap: 22px; font-family: var(--head); font-weight: 500; font-size: .98rem; }
+  nav a { color: var(--muted); text-decoration: none; transition: color 0.2s ease; }
+  nav a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 6px; }
+
+  /* Telemetry Status Badge */
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 8px; font-family: var(--code);
+    font-size: 0.8rem; padding: 4px 12px; border-radius: 999px;
+    background: var(--accent-bg); border: 1px solid var(--line);
+  }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .status-dot.green { background: #10B981; box-shadow: 0 0 8px #10B981; }
+
+  /* Hero */
+  .hero { padding: 56px 0 24px; }
+  .hero-tag {
+    font-family: var(--code); font-size: 0.85rem; color: var(--river);
+    background: var(--accent-bg); padding: 4px 12px; border-radius: 999px;
+    border: 1px solid var(--line); display: inline-block; margin-bottom: 16px;
+  }
+  h1 {
+    font-family: var(--head); font-weight: 700; margin: 0 0 20px;
+    font-size: clamp(2.5rem, 6.5vw, 4.8rem); line-height: 1.05; letter-spacing: -0.03em;
+    max-width: 16ch;
+  }
+  .lede { max-width: 52ch; font-size: 1.25rem; color: var(--muted); margin: 0 0 8px; }
+
+  /* Project Section & Filter */
+  section { padding: 56px 0 8px; }
+  h2 { font-family: var(--head); font-weight: 700; font-size: clamp(1.7rem, 3.4vw, 2.3rem); letter-spacing: -0.02em; margin: 0 0 8px; }
+  .sub { color: var(--muted); max-width: 52ch; margin: 0 0 28px; }
+
+  .filter-bar { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; align-items: center; }
+  .filter-btn {
+    font-family: var(--head); font-size: .88rem; font-weight: 500;
+    background: transparent; border: 1px solid var(--line); color: var(--muted);
+    padding: 6px 16px; border-radius: 999px; cursor: pointer; transition: all 0.2s ease;
+  }
+  .filter-btn.active, .filter-btn:hover { color: var(--ink); border-color: var(--river); background: var(--accent-bg); }
+
+  .btn-add-project {
+    font-family: var(--head); font-size: .88rem; font-weight: 700;
+    background: transparent; border: 1px dashed var(--river); color: var(--river);
+    padding: 6px 16px; border-radius: 999px; cursor: pointer; transition: all 0.2s ease;
+    margin-left: auto;
+  }
+  .btn-add-project:hover { background: var(--river); color: #0B1626; border-style: solid; }
+
+  .rows { border-top: 1px solid var(--line); }
+  .row {
+    display: grid; grid-template-columns: 240px 1fr 180px; gap: 8px 32px;
+    padding: 24px 0; border-bottom: 1px solid var(--line); align-items: start;
+    transition: background 0.2s ease;
+  }
+  .row h4 { font-family: var(--head); font-size: 1.25rem; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .row p { margin: 0; font-size: 1.05rem; }
+  .stack { font-family: var(--code); font-size: .82rem; color: var(--muted); margin-top: 8px; }
+  .action-col { text-align: right; display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+  .btn-showcase {
+    font-family: var(--head); font-size: .88rem; font-weight: 700;
+    background: var(--river); color: #0B1626; border: none; padding: 8px 16px;
+    border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-block;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .btn-showcase:hover { background: var(--signal); color: #fff; transform: translateY(-1px); }
+  .links { display: flex; gap: 14px; font-family: var(--head); font-size: .95rem; align-items: center; }
+  @media (max-width: 800px) {
+    .row { grid-template-columns: 1fr; gap: 12px; }
+    .action-col { text-align: left; align-items: flex-start; }
+  }
+
+  /* Modal Showcase Window */
+  .modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.8); display: none; justify-content: center; align-items: center;
+    z-index: 1000; padding: 20px; opacity: 0; transition: opacity 0.25s ease;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.active { display: flex; opacity: 1; }
+  .modal-card {
+    background: var(--card-bg); border: 1px solid var(--line); border-radius: 12px;
+    max-width: 760px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 32px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5); position: relative; color: var(--ink);
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 20px; font-size: 1.8rem; background: none;
+    border: none; color: var(--muted); cursor: pointer; font-family: var(--head);
+    line-height: 1;
+  }
+  .modal-close:hover { color: var(--signal); }
+  .modal-title { font-family: var(--head); font-size: 1.8rem; font-weight: 700; margin: 0 0 8px; }
+  .modal-badge { font-family: var(--code); font-size: .8rem; background: var(--accent-bg); padding: 4px 10px; border-radius: 4px; color: var(--river); display: inline-block; margin-bottom: 16px; }
+  
+  .modal-media-box { width: 100%; background: #000; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); margin: 16px 0 24px; text-align: center; }
+  .modal-img { width: 100%; height: auto; display: block; margin: 0 auto; }
+  .modal-video { width: 100%; height: 360px; border: none; display: block; }
+  
+  .modal-body { font-size: 1.05rem; margin-bottom: 24px; color: var(--ink); line-height: 1.7; }
+  .modal-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-top: 20px; font-family: var(--head); flex-wrap: wrap; gap: 12px; }
+
+  /* Form & Upload Styles */
+  .form-group { margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-family: var(--head); font-size: .95rem; font-weight: 500; color: var(--ink); }
+  .form-control {
+    font-family: var(--body); font-size: 1rem; background: var(--paper);
+    border: 1px solid var(--line); color: var(--ink); padding: 10px 14px; border-radius: 6px;
+    outline: none; transition: border-color 0.2s ease;
+  }
+  .form-control:focus { border-color: var(--river); }
+  select.form-control { font-family: var(--head); cursor: pointer; }
+  
+  .drop-zone {
+    border: 2px dashed var(--line); border-radius: 8px; padding: 24px; text-align: center;
+    background: var(--paper); cursor: pointer; transition: all 0.2s ease; margin-top: 4px;
+  }
+  .drop-zone:hover, .drop-zone.dragover { border-color: var(--river); background: var(--accent-bg); }
+  .drop-zone-text { font-family: var(--head); font-size: .95rem; color: var(--muted); }
+
+  .focus { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 12px; }
+  .focus div { border-left: 3px solid var(--river); padding-left: 16px; }
+  .focus h3 { font-family: var(--head); font-size: 1.15rem; margin: 0 0 6px; }
+  .focus p { margin: 0; color: var(--muted); font-size: 1.02rem; }
+  @media (max-width: 800px) { .focus { grid-template-columns: 1fr; } }
+
+  .contact { padding-bottom: 72px; }
+  .social { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 18px; font-family: var(--head); align-items: center; }
+  .linkedin-badge { display: inline-flex; align-items: center; gap: 8px; background: #0A66C2; color: #fff; padding: 6px 16px; border-radius: 999px; text-decoration: none; font-weight: 500; font-size: 0.9rem; }
+  .linkedin-badge:hover { background: #004182; color: #fff; }
+
+  footer { border-top: 1px solid var(--line); padding: 24px 0 36px; color: var(--muted); font-size: .95rem; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; align-items: center; }
+  button.theme { font: inherit; font-family: var(--head); font-size: .9rem; background: none; border: 1px solid var(--line); color: var(--muted); padding: 6px 16px; border-radius: 999px; cursor: pointer; transition: all 0.2s ease; }
+  button.theme:hover { color: var(--ink); border-color: var(--ink); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <a class="mark" href="#top">Sulayman Bah</a>
+      <div class="status-badge" title="Live Model Infrastructure Status">
+        <span class="status-dot green"></span>
+        <span style="font-size: 0.78rem; color: var(--muted);">Endpoints Online • 142ms</span>
+      </div>
+    </div>
+
+    <div class="head-right">
+      <nav aria-label="Main">
+        <a href="#work">Projects</a>
+        <a href="#playground">Playground</a>
+        <a href="#analytics">Analytics</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <!-- Avatar Header -->
+      <img class="avatar" alt="Portrait of Sulayman Bah" width="56" height="56" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%2314357F\'/><text x=\'50%\' y=\'55%\' font-size=\'36\' fill=\'%23E8EEF5\' text-anchor=\'middle\' dominant-baseline=\'middle\' font-family=\'sans-serif\' font-weight=\'bold\'>SB</text></svg>';">
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <!-- Hero Section -->
+  <section class="hero">
+    <span class="hero-tag">AI & ML Engineer • The Gambia</span>
+    <h1>Engineering Machine Learning Systems.</h1>
+    <p class="lede">Sulayman Bah builds computer vision models, localized NLP applications, and scalable software architecture tailored for agriculture, health, and civic infrastructure.</p>
+  </section>
+
+  <!-- Interactive ML Model Playground -->
+  <section id="playground" style="background: var(--accent-bg); border: 1px solid var(--line); border-radius: 12px; padding: 28px; margin: 10px 0 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; margin-bottom: 20px;">
+      <div>
+        <h3 style="font-family: var(--head); margin: 0 0 4px; font-size: 1.4rem;">⚡ Interactive ML Model Playground</h3>
+        <p style="margin: 0; color: var(--muted); font-size: 0.95rem;">Select a sample dataset to test real-time simulated vision model inference and confidence score outputs.</p>
+      </div>
+      <span class="hero-tag" style="margin: 0;">PyTorch / Ollama Engine</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 240px 1fr; gap: 20px;">
+      <div class="form-group">
+        <label for="sampleSelector" style="font-size: 0.85rem; font-weight: bold; text-transform: uppercase; color: var(--muted);">Select Sample Dataset</label>
+        <select id="sampleSelector" class="form-control" onchange="runInferenceTest()" style="margin-top: 4px;">
+          <option value="cassava_blight">Cassava Leaf - Bacterial Blight</option>
+          <option value="maize_rust">Maize Leaf - Common Rust</option>
+          <option value="healthy_rice">Rice Leaf - Healthy Specimen</option>
+        </select>
+        <button class="btn-showcase" onclick="runInferenceTest()" style="margin-top: 12px; width: 100%; text-align: center;">▶ Run Inference</button>
+      </div>
+
+      <div style="background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 16px; font-family: var(--code); font-size: 0.88rem;" id="inferenceConsole">
+        <div style="color: var(--muted); margin-bottom: 8px;">// Model output terminal initialized...</div>
+        <div style="color: #10B981;">[READY] Select dataset sample and click "Run Inference".</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chart.js Performance Analytics Dashboard -->
+  <section id="analytics" style="padding: 20px 0 30px;">
+    <div style="background: var(--card-bg); border: 1px solid var(--line); border-radius: 12px; padding: 28px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 20px;">
+        <div>
+          <h3 style="font-family: var(--head); margin: 0 0 4px; font-size: 1.4rem;">📊 System Performance & Dataset Analytics</h3>
+          <p style="margin: 0; color: var(--muted); font-size: 0.95rem;">Real-time benchmarks of deployed West African agricultural models and regional translation engines.</p>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="filter-btn active" onclick="switchChart('bar', this)">Accuracy / Latency</button>
+          <button class="filter-btn" onclick="switchChart('doughnut', this)">Dialect Distribution</button>
+        </div>
+      </div>
+      <div style="position: relative; height: 300px; width: 100%;">
+        <canvas id="performanceChart"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Showcase Section -->
+  <section id="work">
+    <h2>Built Systems & Demos</h2>
+    <p class="sub">Click "Showcase Build" on any project to view architecture details, YouTube video demo, diagrams, and media.</p>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All Systems</button>
+      <button class="filter-btn" data-filter="agri">Agriculture & Vision</button>
+      <button class="filter-btn" data-filter="space">Space & Telemetry</button>
+      <button class="filter-btn" data-filter="civic">B2B & Translation</button>
+      <button class="btn-add-project" onclick="openUploadModal()">+ Submit Hackathon Build</button>
+      <button class="filter-btn" onclick="exportProjectsJSON()" style="border-color: var(--signal); color: var(--signal);">📥 Export JSON</button>
+    </div>
+
+    <div class="rows" id="project-list">
+      <!-- Project 1: FarmAI -->
+      <div class="row" data-category="agri">
+        <div>
+          <h4>FarmAI Assistant</h4>
+          <div class="stack">PyTorch • CNN • Open-Meteo • Streamlit</div>
+        </div>
+        <div>
+          <p>38-class crop leaf disease detection model paired with regional weather insights for West African farmers.</p>
+        </div>
+        <div class="action-col">
+          <button class="btn-showcase" onclick="openModal('farmai')">Showcase Build ↗</button>
+          <div class="links">
+            <button class="filter-btn" onclick="upvoteProject('farmai', event)" style="padding: 2px 8px; font-size: 0.8rem;">♥ <span id="vote_farmai">14</span></button>
+            <a href="https://github.com/bahsulayman689-hash" target="_blank">Code</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2: AgriGuard-Open -->
+      <div class="row" data-category="agri">
+        <div>
+          <h4>AgriGuard-Open</h4>
+          <div class="stack">Offline AI • FastNLP • Render • Python</div>
+        </div>
+        <div>
+          <p>Offline-first crop pathology and dialect localization for Wolof, Mandinka, Pulaar, and French.</p>
+        </div>
+        <div class="action-col">
+          <button class="btn-showcase" onclick="openModal('agriguard')">Showcase Build ↗</button>
+          <div class="links">
+            <button class="filter-btn" onclick="upvoteProject('agriguard', event)" style="padding: 2px 8px; font-size: 0.8rem;">♥ <span id="vote_agriguard">9</span></button>
+            <a href="https://github.com/bahsulayman689-hash" target="_blank">Code</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3: AstraHealth -->
+      <div class="row" data-category="space">
+        <div>
+          <h4>AstraHealth Telemetry</h4>
+          <div class="stack">React • Vercel • Telemetry Simulation</div>
+        </div>
+        <div>
+          <p>Astronaut health telemetry monitoring dashboard featuring real-time bio-scans and reaction tests.</p>
+        </div>
+        <div class="action-col">
+          <button class="btn-showcase" onclick="openModal('astrahealth')">Showcase Build ↗</button>
+          <div class="links">
+            <button class="filter-btn" onclick="upvoteProject('astrahealth', event)" style="padding: 2px 8px; font-size: 0.8rem;">♥ <span id="vote_astrahealth">18</span></button>
+            <a href="https://github.com/bahsulayman689-hash" target="_blank">Code</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4: Machine Translation -->
+      <div class="row" data-category="civic">
+        <div>
+          <h4>Dual-Engine MT Translator</h4>
+          <div class="stack">Gemini API • Meta NLLB-200 • FastAPI</div>
+        </div>
+        <div>
+          <p>Machine translation engine evaluating translation accuracy for low-resource languages including Wolof, Fula, and Jola.</p>
+        </div>
+        <div class="action-col">
+          <button class="btn-showcase" onclick="openModal('translator')">Showcase Build ↗</button>
+          <div class="links">
+            <button class="filter-btn" onclick="upvoteProject('translator', event)" style="padding: 2px 8px; font-size: 0.8rem;">♥ <span id="vote_translator">11</span></button>
+            <a href="https://github.com/bahsulayman689-hash" target="_blank">Code</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Focus Section -->
+  <section id="focus">
+    <h2>Core Expertise</h2>
+    <div class="focus">
+      <div>
+        <h3>Computer Vision & AI</h3>
+        <p>Custom PyTorch CNNs, EfficientNet image classification, Hugging Face Space deployments, and local model execution via Ollama.</p>
+      </div>
+      <div>
+        <h3>Backend & API Services</h3>
+        <p>FastAPI, Node.js, Express microservices, Python environments (.venv), SQLite, Supabase, and Cloudflare DNS management.</p>
+      </div>
+      <div>
+        <h3>Frontend & Deployment</h3>
+        <p>Responsive dark-mode UI web applications, React, Streamlit dashboards, Vercel deployments, and Cloudflare Pages hosting.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2>About</h2>
+    <p>I am an Electrical Engineering student at the University of Applied Science, Engineering and Technology (USET) and a Machine Learning Engineer based in The Gambia. I build localized machine learning applications targeting agriculture optimization, low-resource NLP translation, and space telemetry systems.</p>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <h2>Get in Touch</h2>
+    <p class="sub">Open for machine learning consulting, open-source AI collaborations, and technical deployment projects.</p>
+    <div class="social">
+      <a href="https://github.com/bahsulayman689-hash" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/sulayman-bah-8a7096423" target="_blank" class="linkedin-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        Connect on LinkedIn
+      </a>
+      <a href="https://huggingface.co/collections/sulayman-bah-143/demo" target="_blank">Hugging Face Demos</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Sulayman Bah. All rights reserved.</span>
+    <button class="theme" id="themeToggle" onclick="toggleTheme()">Switch Theme</button>
+  </div>
+</footer>
+
+<!-- Showcase Modal with YouTube Video, Images, and Mermaid.js Architecture -->
+<div class="modal-overlay" id="projectModal" onclick="closeModalOnOverlay(event)">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <h3 class="modal-title" id="modalTitle">Project Title</h3>
+    <span class="modal-badge" id="modalStack">Tech Stack</span>
+
+    <!-- Media / YouTube Showcase Container -->
+    <div class="modal-media-box" id="modalMediaContainer">
+      <img id="modalImg" class="modal-img" src="" alt="Project Showcase Image">
+    </div>
+
+    <!-- System Architecture Mermaid Flowchart -->
+    <div style="background: #070F1B; border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin: 16px 0;">
+      <div style="font-family: var(--code); font-size: 0.8rem; color: var(--river); margin-bottom: 8px;">System Architecture & Dataflow:</div>
+      <div class="mermaid" id="modalMermaid">
+        graph LR
+          A[Client Sensor Input] --> B[FastAPI Gateway]
+          B --> C[PyTorch ML Engine]
+          C --> D[Inference Response]
+      </div>
+    </div>
+    
+    <div class="modal-body" id="modalBody">
+      Detailed project architectural notes load here...
+    </div>
+    
+    <div class="modal-footer">
+      <div style="display: flex; gap: 12px;">
+        <a id="modalGithub" href="#" target="_blank" class="btn-showcase">View Source Code</a>
+        <a id="modalDemo" href="#" target="_blank" class="links" style="align-self: center;">Open Live Demo ↗</a>
+      </div>
+      <!-- LinkedIn Share Button -->
+      <a id="modalLinkedinShare" href="https://www.linkedin.com/sharing/share-offsite/?url=https://sulaymanbah.me" target="_blank" class="linkedin-badge" style="font-size: 0.8rem; padding: 4px 12px;">
+        Share on LinkedIn
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Upload / Add Project Modal -->
+<div class="modal-overlay" id="uploadModal" onclick="closeUploadModalOnOverlay(event)">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeUploadModal()">&times;</button>
+    <h3 class="modal-title">Live Hackathon Submission</h3>
+    <span class="modal-badge">Hackathon & Community Showcase</span>
+
+    <form id="projectForm">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <div class="form-group">
+          <label for="projTitle">Project Name</label>
+          <input type="text" id="projTitle" class="form-control" placeholder="e.g. SolarGrid AI" required>
+        </div>
+        <div class="form-group">
+          <label for="projTeam">Team / Developer Name</label>
+          <input type="text" id="projTeam" class="form-control" placeholder="e.g. Team AgroDev" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="projCategory">Hackathon Track</label>
+        <select id="projCategory" class="form-control" required>
+          <option value="agri">Agriculture & Vision Track</option>
+          <option value="space">Space & Telemetry Track</option>
+          <option value="civic">B2B & Translation Track</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="projStack">Tech Stack</label>
+        <input type="text" id="projStack" class="form-control" placeholder="e.g. PyTorch • OpenCV • Streamlit • Cloudflare" required>
+      </div>
+
+      <div class="form-group">
+        <label for="projSummary">Short Elevator Pitch (Grid Summary)</label>
+        <input type="text" id="projSummary" class="form-control" placeholder="1-sentence pitch of what you built..." required>
+      </div>
+
+      <div class="form-group">
+        <label for="projBody">Detailed Architecture & Pitch Notes</label>
+        <textarea id="projBody" class="form-control" rows="3" placeholder="Full technical breakdown, model details, datasets, and problem solved..." required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="projYoutube">YouTube Video Demo URL (Optional)</label>
+        <input type="url" id="projYoutube" class="form-control" placeholder="https://www.youtube.com/watch?v=...">
+      </div>
+
+      <div class="form-group">
+        <label>Upload Showcase Media (Photos & Demo Videos)</label>
+        <div class="drop-zone" id="dropZone" onclick="document.getElementById('mediaFileInput').click()">
+          <div class="drop-zone-text" id="dropZoneText">
+            📁 Drag & drop Images or Videos here, or <strong>click to browse files</strong>
+          </div>
+          <input type="file" id="mediaFileInput" accept="image/*,video/*" multiple style="display: none;" onchange="handleFileSelect(event)">
+        </div>
+        <div class="media-preview-box" id="mediaPreviewContainer" style="display: none; gap: 8px; overflow-x: auto; padding: 8px 0; margin-top: 12px;"></div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <div class="form-group">
+          <label for="projGithub">Source Repository URL</label>
+          <input type="url" id="projGithub" class="form-control" placeholder="https://github.com/...">
+        </div>
+        <div class="form-group">
+          <label for="projDemo">Live App / Model Demo URL</label>
+          <input type="url" id="projDemo" class="form-control" placeholder="https://huggingface.co/...">
+        </div>
+      </div>
+
+      <div style="text-align: right; margin-top: 16px;">
+        <button type="submit" class="btn-showcase" style="padding: 10px 24px; font-size: 1rem;">🚀 Submit Build to Hackathon</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Project Database
+  const projectsData = {
+    farmai: {
+      title: "FarmAI: AI Crop Pathology Assistant",
+      stack: "PyTorch • 38-Class CNN • Open-Meteo API • Streamlit",
+      votes: 14,
+      youtubeEmbed: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder video demo embed
+      mediaList: [
+        { type: "image", src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300' viewBox='0 0 600 300'><rect width='600' height='300' fill='%2314243B'/><text x='50%' y='40%' font-size='24' fill='%237FA2F0' text-anchor='middle' font-family='sans-serif'>FarmAI Leaf Pathology Simulation</text><text x='50%' y='60%' font-size='16' fill='%239FB0C4' text-anchor='middle' font-family='sans-serif'>38-Class Sequential CNN Model Output</text></svg>" }
+      ],
+      body: "FarmAI incorporates a 38-class sequential CNN trained on the PlantVillage dataset to perform instant real-time disease detection from leaf uploads. It provides localized soil-based crop recommendations for 8 West African crops and integrates live regional weather forecasting via the Open-Meteo API.",
+      github: "https://github.com/bahsulayman689-hash",
+      demo: "https://huggingface.co/collections/sulayman-bah-143/demo"
+    },
+    agriguard: {
+      title: "AgriGuard-Open Intelligence Dashboard",
+      stack: "Python • Dialect Localization • FastNLP • Render",
+      votes: 9,
+      youtubeEmbed: "",
+      mediaList: [
+        { type: "image", src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300' viewBox='0 0 600 300'><rect width='600' height='300' fill='%2314243B'/><text x='50%' y='40%' font-size='24' fill='%237FA2F0' text-anchor='middle' font-family='sans-serif'>AgriGuard Dialect Interface</text><text x='50%' y='60%' font-size='16' fill='%239FB0C4' text-anchor='middle' font-family='sans-serif'>Offline Localization (Wolof, Mandinka, Pulaar, French)</text></svg>" }
+      ],
+      body: "Developed for the DEV Community Hacktoberfest AI Challenge, AgriGuard-Open is an offline-capable agricultural intelligence dashboard featuring crop pathology, soil health evaluations, and local voice/text dialect translation.",
+      github: "https://github.com/bahsulayman689-hash",
+      demo: "https://huggingface.co/collections/sulayman-bah-143/demo"
+    },
+    astrahealth: {
+      title: "AstraHealth Telemetry Dashboard",
+      stack: "React • Telemetry Engine • Vercel • GitHub Pages",
+      votes: 18,
+      youtubeEmbed: "",
+      mediaList: [
+        { type: "image", src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300' viewBox='0 0 600 300'><rect width='600' height='300' fill='%2314243B'/><text x='50%' y='40%' font-size='24' fill='%237FA2F0' text-anchor='middle' font-family='sans-serif'>AstraHealth Physiological Monitor</text><text x='50%' y='60%' font-size='16' fill='%239FB0C4' text-anchor='middle' font-family='sans-serif'>Real-time Biometric Stream Simulation</text></svg>" }
+      ],
+      body: "AstraHealth is an Astronaut Autonomous Health Monitoring web app delivering physiological telemetry simulations, bio-scans, cognitive reaction tests, and client-side data logging.",
+      github: "https://github.com/bahsulayman689-hash",
+      demo: "https://huggingface.co/collections/sulayman-bah-143/demo"
+    },
+    translator: {
+      title: "Dual-Engine Low-Resource Machine Translation",
+      stack: "Gemini API • Meta NLLB-200 • FastAPI • Streamlit",
+      votes: 11,
+      youtubeEmbed: "",
+      mediaList: [
+        { type: "image", src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300' viewBox='0 0 600 300'><rect width='600' height='300' fill='%2314243B'/><text x='50%' y='40%' font-size='24' fill='%237FA2F0' text-anchor='middle' font-family='sans-serif'>NLLB-200 & Gemini Translation Engine</text><text x='50%' y='60%' font-size='16' fill='%239FB0C4' text-anchor='middle' font-family='sans-serif'>Evaluating Low-Resource Accuracy for Wolof, Fula & Jola</text></svg>" }
+      ],
+      body: "A high-performance machine translation system comparing cloud LLM endpoints against local NLLB-200 inference to deliver accurate translations for low-resource regional languages.",
+      github: "https://github.com/bahsulayman689-hash",
+      demo: "https://huggingface.co/collections/sulayman-bah-143/demo"
+    }
+  };
+
+  let activeUploadedMediaList = [];
+  let performanceChartInstance = null;
+
+  // Chart.js Initialization
+  function initAnalyticsChart() {
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    performanceChartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['FarmAI CNN', 'AgriGuard NLP', 'AstraHealth Telemetry', 'Dual-Engine MT'],
+        datasets: [{
+          label: 'Model Accuracy / Benchmark (%)',
+          data: [98.4, 94.2, 97.8, 95.6],
+          backgroundColor: '#7FA2F0',
+          borderColor: '#7FA2F0',
+          borderWidth: 1,
+          borderRadius: 6
+        }, {
+          label: 'Inference Latency (ms)',
+          data: [112, 145, 88, 120],
+          backgroundColor: '#FF5A6E',
+          borderColor: '#FF5A6E',
+          borderWidth: 1,
+          borderRadius: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { labels: { color: '#E8EEF5', font: { family: 'JetBrains Mono' } } }
+        },
+        scales: {
+          x: { ticks: { color: '#9FB0C4' }, grid: { color: '#24364D' } },
+          y: { ticks: { color: '#9FB0C4' }, grid: { color: '#24364D' } }
+        }
+      }
+    });
+  }
+
+  function switchChart(type, btn) {
+    document.querySelectorAll('#analytics .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    if (type === 'doughnut') {
+      performanceChartInstance.config.type = 'doughnut';
+      performanceChartInstance.data = {
+        labels: ['Wolof', 'Mandinka', 'Pulaar', 'Fula', 'Jola'],
+        datasets: [{
+          data: [35, 25, 18, 12, 10],
+          backgroundColor: ['#7FA2F0', '#FF5A6E', '#10B981', '#F59E0B', '#8B5CF6']
+        }]
+      };
+      performanceChartInstance.options.scales = { x: { display: false }, y: { display: false } };
+    } else {
+      performanceChartInstance.config.type = 'bar';
+      performanceChartInstance.data = {
+        labels: ['FarmAI CNN', 'AgriGuard NLP', 'AstraHealth Telemetry', 'Dual-Engine MT'],
+        datasets: [{
+          label: 'Model Accuracy / Benchmark (%)',
+          data: [98.4, 94.2, 97.8, 95.6],
+          backgroundColor: '#7FA2F0',
+          borderRadius: 6
+        }, {
+          label: 'Inference Latency (ms)',
+          data: [112, 145, 88, 120],
+          backgroundColor: '#FF5A6E',
+          borderRadius: 6
+        }]
+      };
+      performanceChartInstance.options.scales = {
+        x: { ticks: { color: '#9FB0C4' }, grid: { color: '#24364D' } },
+        y: { ticks: { color: '#9FB0C4' }, grid: { color: '#24364D' } }
+      };
+    }
+    performanceChartInstance.update();
+  }
+
+  // Upvoting System
+  function upvoteProject(projectId, e) {
+    if(e) e.stopPropagation();
+    if(!projectsData[projectId]) return;
+    
+    projectsData[projectId].votes = (projectsData[projectId].votes || 0) + 1;
+    const voteSpan = document.getElementById(`vote_${projectId}`);
+    if(voteSpan) voteSpan.innerText = projectsData[projectId].votes;
+  }
+
+  // Interactive ML Inference Playground Function
+  function runInferenceTest() {
+    const sample = document.getElementById('sampleSelector').value;
+    const consoleEl = document.getElementById('inferenceConsole');
+
+    const outputs = {
+      cassava_blight: {
+        class: "Cassava Bacterial Blight (Xanthomonas axonopodis)",
+        confidence: "98.4%",
+        latency: "112ms",
+        action: "Isolate affected crops; apply copper-based bactericide immediately."
+      },
+      maize_rust: {
+        class: "Maize Common Rust (Puccinia sorghi)",
+        confidence: "96.1%",
+        latency: "98ms",
+        action: "Apply fungicide treatment within 48 hours to prevent spore spread."
+      },
+      healthy_rice: {
+        class: "Healthy Specimen (No Leaf Pathology Detected)",
+        confidence: "99.2%",
+        latency: "84ms",
+        action: "Maintain standard crop irrigation and fertilizer monitoring schedule."
+      }
+    };
+
+    const res = outputs[sample];
+    consoleEl.innerHTML = `
+      <div style="color: var(--river); margin-bottom: 6px;">[EXEC] Processing tensor array via PyTorch CNN engine...</div>
+      <div><strong>Prediction:</strong> <span style="color: #FF5A6E;">${res.class}</span></div>
+      <div><strong>Confidence Score:</strong> <span style="color: #10B981;">${res.confidence}</span> | <strong>Inference Time:</strong> ${res.latency}</div>
+      <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line); color: var(--muted);"><strong>Recommended Action:</strong> ${res.action}</div>
+    `;
+  }
+
+  // Modal Controls
+  function openModal(projectId) {
+    const data = projectsData[projectId];
+    if (!data) return;
+    
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalStack').innerText = data.stack;
+    document.getElementById('modalBody').innerText = data.body;
+    document.getElementById('modalGithub').href = data.github || '#';
+    document.getElementById('modalDemo').href = data.demo || '#';
+
+    const container = document.getElementById('modalMediaContainer');
+    container.innerHTML = '';
+
+    if (data.youtubeEmbed) {
+      container.innerHTML = `<iframe class="modal-video" src="${data.youtubeEmbed}" allowfullscreen></iframe>`;
+    } else if (data.mediaList && data.mediaList.length > 0) {
+      data.mediaList.forEach((media, idx) => {
+        if (media.type === 'video') {
+          container.innerHTML += `<video class="modal-video" controls autoplay loop muted src="${media.src}"></video>`;
+        } else {
+          container.innerHTML += `<img class="modal-img" src="${media.src}" alt="Project Media ${idx+1}">`;
+        }
+      });
+    }
+
+    const modal = document.getElementById('projectModal');
+    modal.classList.add('active');
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('projectModal');
+    modal.classList.remove('active');
+    document.getElementById('modalMediaContainer').innerHTML = '';
+  }
+
+  function closeModalOnOverlay(e) {
+    if (e.target.id === 'projectModal') closeModal();
+  }
+
+  function openUploadModal() {
+    document.getElementById('uploadModal').classList.add('active');
+  }
+
+  function closeUploadModal() {
+    document.getElementById('uploadModal').classList.remove('active');
+  }
+
+  function closeUploadModalOnOverlay(e) {
+    if (e.target.id === 'uploadModal') closeUploadModal();
+  }
+
+  // File Upload Handlers
+  function handleFileSelect(e) {
+    const files = Array.from(e.target.files);
+    files.forEach(file => processFile(file));
+  }
+
+  function processFile(file) {
+    const reader = new FileReader();
+    const isVideo = file.type.startsWith('video/');
+    
+    reader.onload = function(event) {
+      activeUploadedMediaList.push({
+        type: isVideo ? 'video' : 'image',
+        src: event.target.result
+      });
+
+      const previewContainer = document.getElementById('mediaPreviewContainer');
+      previewContainer.style.display = 'flex';
+      
+      const thumb = document.createElement('div');
+      thumb.style.cssText = 'width: 100px; height: 70px; flex-shrink: 0; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: #000;';
+      if (isVideo) {
+        thumb.innerHTML = `<video src="${event.target.result}" style="width:100%; height:100%; object-fit:cover;"></video>`;
+      } else {
+        thumb.innerHTML = `<img src="${event.target.result}" style="width:100%; height:100%; object-fit:cover;">`;
+      }
+      previewContainer.appendChild(thumb);
+
+      document.getElementById('dropZoneText').innerHTML = `✅ Attached <strong>${activeUploadedMediaList.length} media file(s)</strong>.`;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Submit Form Event Listener
+  document.getElementById('projectForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const title = document.getElementById('projTitle').value;
+    const team = document.getElementById('projTeam').value;
+    const category = document.getElementById('projCategory').value;
+    const stack = document.getElementById('projStack').value;
+    const summary = document.getElementById('projSummary').value;
+    const body = document.getElementById('projBody').value;
+    const youtubeInput = document.getElementById('projYoutube').value;
+    const github = document.getElementById('projGithub').value || '#';
+    const demo = document.getElementById('projDemo').value || '#';
+
+    let ytEmbed = "";
+    if (youtubeInput) {
+      const match = youtubeInput.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+      if (match && match[1]) {
+        ytEmbed = `https://www.youtube.com/embed/${match[1]}`;
+      }
+    }
+
+    const projectId = 'custom_' + Date.now();
+    const defaultImg = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300' viewBox='0 0 600 300'><rect width='600' height='300' fill='%2314243B'/><text x='50%' y='50%' font-size='22' fill='%237FA2F0' text-anchor='middle' font-family='sans-serif'>Hackathon Build Submission</text></svg>";
+
+    projectsData[projectId] = {
+      title: `${title} (${team})`,
+      stack: stack,
+      votes: 1,
+      youtubeEmbed: ytEmbed,
+      mediaList: activeUploadedMediaList.length > 0 ? activeUploadedMediaList : [{ type: 'image', src: defaultImg }],
+      body: body,
+      github: github,
+      demo: demo
+    };
+
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.id = `row_${projectId}`;
+    row.setAttribute('data-category', category);
+    row.innerHTML = `
+      <div>
+        <h4>${title} <span style="font-size:0.8rem; font-weight:normal; color:var(--river);">by ${team}</span></h4>
+        <div class="stack">${stack}</div>
+      </div>
+      <div>
+        <p>${summary}</p>
+      </div>
+      <div class="action-col">
+        <button class="btn-showcase" onclick="openModal('${projectId}')">Showcase Build ↗</button>
+        <div class="links">
+          <button class="filter-btn" onclick="upvoteProject('${projectId}', event)" style="padding: 2px 8px; font-size: 0.8rem;">♥ <span id="vote_${projectId}">1</span></button>
+          <a href="${github}" target="_blank">Code</a>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('project-list').prepend(row);
+    closeUploadModal();
+    openModal(projectId);
+  });
+
+  // Export JSON Data
+  function exportProjectsJSON() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(projectsData, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `sulayman_hackathon_submissions_${Date.now()}.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  }
+
+  // Theme Toggle
+  function toggleTheme() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    html.setAttribute('data-theme', currentTheme === 'light' ? '' : 'light');
+  }
+</script>
+</body>
+</html>
